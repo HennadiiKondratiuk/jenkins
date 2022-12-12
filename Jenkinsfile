@@ -27,7 +27,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script{
-                        docker.withRegistry('https://319448237430.dkr.ecr.eu-central-1.amazonaws.com/hkondratiuk-images', 'ecr:eu-central-1:ecr-jenkins') {
+                        docker.withRegistry('https://319448237430.dkr.ecr.eu-central-1.amazonaws.com/hkondratiuk-images', 'ecr:eu-central-1:ecr-cred') {
                             app.push("${env.BUILD_NUMBER}")
                             //app.push("latest")
                     }
