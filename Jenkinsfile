@@ -29,7 +29,7 @@ pipeline {
                 script{
                         docker.withRegistry('https://319448237430.dkr.ecr.eu-central-1.amazonaws.com/hkondratiuk-images', 'ecr:eu-central-1:ecr credential') {
                             app.push()
-                            //app.push("latest")
+                            app.push("latest")
                     }
                 }
             }
