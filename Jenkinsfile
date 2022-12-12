@@ -24,5 +24,15 @@ pipeline {
                  echo 'Empty'
             }
         }
+        stage('Deploy') {
+            steps {
+                script{
+                        docker.withRegistry('https://319448237430.dkr.ecr.eu-central-1.amazonaws.com/hkondratiuk-images', 'ecr credential') {
+                            app.push("${env.BUILD_NUMBER}")
+                            //app.push("latest")
+                    }
+                }
+            }
+        }
     }
 }   
