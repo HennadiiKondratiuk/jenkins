@@ -44,7 +44,7 @@ pipeline {
                          touch /home/ubuntu/TEST.txt
                         '''
                        // Execute commands
-                       sshPublisher(publishers: [sshPublisherDesc(configName: '10.0.1.116',
+                       sshPublisher(publishers: [sshPublisherDesc(configName: 'Jenkins worker',
                        transfers: [ sshTransfer(execCommand: command    )])])
                 }
             }
