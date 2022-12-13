@@ -37,5 +37,17 @@ pipeline {
                 }
             }
         }
+        stage('Pull') {
+            steps {
+                script{
+                       command='''
+                         touch /home/ubuntu/TEST.txt
+                        '''
+                       // Execute commands
+                       sshPublisher(publishers: [sshPublisherDesc(configName: '10.0.1.116',
+                       transfers: [ sshTransfer(execCommand: command    )])])
+                }
+            }
+        }
     }
 }   
