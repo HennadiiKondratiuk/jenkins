@@ -24,6 +24,9 @@ pipeline {
                 script{
                     sshagent(credentials: ['Jenkins_agent_ssh_key']) {
                         sh '''
+                            [ -d ~/.ssh ] || mkdir ~/.ssh && chmod 0700 ~/.ssh
+                            ssh-keyscan -t rsa,dsa example.com >> ~/.ssh/known_hosts
+                            ssh ubuntu@10.0.1.116
                             aws ecr get-login-password --region region | docker login --username AWS --password-stdin aws_account_id.dkr.ecr.region.amazonaws.com
                             docker pull 319448237430.dkr.ecr.eu-central-1.amazonaws.com/hkondratiuk-images:$BUILD_ID
                             docker run -d 319448237430.dkr.ecr.eu-central-1.amazonaws.com/hkondratiuk-images:$BUILD_ID
