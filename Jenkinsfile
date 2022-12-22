@@ -22,16 +22,15 @@ pipeline {
         stage('Pull and Run') {
             steps {
                 script{
-                       command='''
-                       aws ecr get-login-password --region region | docker login --username AWS --password-stdin aws_account_id.dkr.ecr.region.amazonaws.com
-                       docker pull 319448237430.dkr.ecr.eu-central-1.amazonaws.com/hkondratiuk-images:$BUILD_ID
-                       docker run -d 319448237430.dkr.ecr.eu-central-1.amazonaws.com/hkondratiuk-images:$BUILD_ID
-                       '''
-                       // Execute commands
-                       sshPublisher(publishers: [sshPublisherDesc(configName: 'Jenkins worker',
-                       transfers: [ sshTransfer(execCommand: command    )])])
+                    sshagent(credentials: ['Jenkins_agent_ssh_key']) {
+                        sh '''
+                            aws ecr get-login-password --region region | docker login --username AWS --password-stdin aws_account_id.dkr.ecr.region.amazonaws.com
+                            docker pull 319448237430.dkr.ecr.eu-central-1.amazonaws.com/hkondratiuk-images:$BUILD_ID
+                            docker run -d 319448237430.dkr.ecr.eu-central-1.amazonaws.com/hkondratiuk-images:$BUILD_ID
+                        '''
+                    }
                 }
             }
         }
     }
-}   
+}
