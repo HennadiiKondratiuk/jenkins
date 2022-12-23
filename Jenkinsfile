@@ -26,8 +26,8 @@ pipeline {
                     def deprun = '''
                         env  && \
                         aws ecr get-login-password --region eu-central-1 && \
-                        docker pull 319448237430.dkr.ecr.eu-central-1.amazonaws.com/hkondratiuk-images:${env.BUILD_ID} && \
-                        docker run -d 319448237430.dkr.ecr.eu-central-1.amazonaws.com/hkondratiuk-images:${env.BUILD_ID}
+                        eval ${docker pull 319448237430.dkr.ecr.eu-central-1.amazonaws.com/hkondratiuk-images:$BUILD_ID} && \
+                        eval ${docker run -d 319448237430.dkr.ecr.eu-central-1.amazonaws.com/hkondratiuk-images:$BUILD_ID}
                         '''
                         sshagent(credentials: ['Jenkins_agent_ssh_key']) {
                             sh "ssh ubuntu@10.0.1.116 '${deprun}' "
