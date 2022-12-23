@@ -2,7 +2,7 @@
 FROM ubuntu
 
 # Install Nginx
-RUN apt install apt-utils
+RUN apt-get install apt-utils
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 RUN apt-get -y update && apt-get -y install nginx
 
