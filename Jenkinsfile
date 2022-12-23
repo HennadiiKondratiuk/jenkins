@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script{
                     withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: "aws", secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                        def deprun = '''echo $AWS_ACCESS_KEY_ID > ~/.aws/credentials'''
+                        def deprun = '''echo AWS_ACCESS_KEY_ID > ~/.aws/credentials'''
                         sshagent(credentials: ['Jenkins_agent_ssh_key']) {
                             sh "ssh ubuntu@10.0.1.116 '${deprun}' "
                         }
