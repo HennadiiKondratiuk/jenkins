@@ -1,4 +1,3 @@
-web:
   image: nginx
   volumes:
    - ./templates:/etc/nginx/templates
