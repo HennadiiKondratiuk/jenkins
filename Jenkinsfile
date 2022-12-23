@@ -22,11 +22,13 @@ pipeline {
         stage('Pull and Run') {
             steps {
                 script{
-                    def deprun = "aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin https://319448237430.dkr.ecr.eu-central-1.amazonaws.com/hkondratiuk-images && \
-                        docker pull 319448237430.dkr.ecr.eu-central-1.amazonaws.com/hkondratiuk-images:$BUILD_ID  && \
-                        docker run -d 319448237430.dkr.ecr.eu-central-1.amazonaws.com/hkondratiuk-images:$BUILD_ID "
-                    sshagent(credentials: ['Jenkins_agent_ssh_key']) {
-                        sh "ssh ubuntu@10.0.1.116 '${deprun}' "
+                    withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: "aws", secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                        def deprun = "aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin https://319448237430.dkr.ecr.eu-central-1.amazonaws.com/hkondratiuk-images && \
+                            docker pull 319448237430.dkr.ecr.eu-central-1.amazonaws.com/hkondratiuk-images:$BUILD_ID  && \
+                            docker run -d 319448237430.dkr.ecr.eu-central-1.amazonaws.com/hkondratiuk-images:$BUILD_ID "
+                        sshagent(credentials: ['Jenkins_agent_ssh_key']) {
+                            sh "ssh ubuntu@10.0.1.116 '${deprun}' "
+                        }
                     }
                 }
             }
