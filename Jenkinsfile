@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script{
                     withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: "aws", secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                        def deprun = "cat <<EOT >> ~/.aws/credentials
+                        def deprun = "cat <<EOT >> ~/.aws/credentials \
                             aws_access_key_id = AWS_ACCESS_KEY_ID
                             aws_secret_access_key = AWS_SECRET_ACCESS_KEY
                             EOT && \
