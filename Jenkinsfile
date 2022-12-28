@@ -29,8 +29,8 @@ pipeline {
                           aws ecs register-task-definition --cli-input-json file://task_def.json
                           
                         '''
-                        echo ${Revision}
-                        //sh "aws ecs update-service --cluster hkondratiuk-ecs-cluster --service nginx_service --task-definition nginx_family:${Revision}"
+                        //echo ${Revision}
+                        sh "aws ecs update-service --cluster hkondratiuk-ecs-cluster --service nginx_service --task-definition nginx_family:${Revision}"
                         
                     }
                 }
