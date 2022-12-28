@@ -21,8 +21,11 @@ pipeline {
         }
         stage('Pull and Run') {
             steps {
-                
-                echo "Deploy"
+                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: "aws", secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    sh '''
+                       aws ecs register-task-definition --cli-input-json file://task_def.json
+                       aws ecs update-service --cluster hkondratiuk-ecs-cluster --service nginx_service --task-definition nginx_family:3
+                    '''     
             }
         }
     }
