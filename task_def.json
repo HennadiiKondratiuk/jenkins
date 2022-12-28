@@ -1,4 +1,4 @@
-{
+
     "containerDefinitions": [
         {
             "name": "nginx", 
@@ -17,5 +17,5 @@
     ], 
     "cpu": "256", 
     "memory": "512"
-}
+
 
