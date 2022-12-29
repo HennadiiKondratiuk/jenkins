@@ -1,5 +1,12 @@
-## fluentd/Dockerfile
-FROM fluent/fluentd:v1.6-debian-1
-USER root
-RUN ["gem", "install", "fluent-plugin-elasticsearch", "--no-document", "--version", "3.5.2"]
-USER fluent
+  # Pull the minimal Ubuntu image
+FROM ubuntu
+
+# Install Nginx
+RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+RUN apt-get -y update && apt-get -y install nginx
+
+# Expose the port for access
+EXPOSE 80/tcp
+
+# Run the Nginx server
+CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
