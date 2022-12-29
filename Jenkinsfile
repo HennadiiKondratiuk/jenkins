@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        AWS_ECR_REPO = 'https://319448237430.dkr.ecr.eu-central-1.amazonaws.com/hkondratiuk-images'
+        AWS_ECR_REPO = '319448237430.dkr.ecr.eu-central-1.amazonaws.com/hkondratiuk-images'
         AWS_ECR_REGION = 'eu-central-1'
         AWS_ECS_SERVICE = 'nginx_service'
         AWS_ECS_CLUSTER = 'hkondratiuk-ecs-cluster'
