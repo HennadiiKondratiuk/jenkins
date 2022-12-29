@@ -1,4 +1,7 @@
 {
+    "family": "nginx_family", 
+    "networkMode": "awsvpc",
+    "executionRoleArn": "arn:aws:iam::319448237430:role/ecsTaskExecutionRole", 
     "containerDefinitions": [
         {
             "name": "nginx", 
